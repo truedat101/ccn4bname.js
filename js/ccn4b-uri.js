@@ -29,7 +29,16 @@
 **/
 
 ccn4b-uri = {
-	version = "0.0.1",
-	noop: function() {
+	protocolversion = "0.4.1",
+	ccn4buri = {},
+	
+	parse: function(uristring) {
+		
+	}, 
+	validate: function(uristring) {
+		
+	}, 
+	toString: function(ccn4buriObj) {
+		
 	}
 };
