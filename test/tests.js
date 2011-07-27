@@ -15,6 +15,7 @@ test("ccn4bname CCNx Protocol Check",function(){
   	ok(ccn4bname.protocolVersion, "did we find the protocolVersion attribute?");
   	ok(ccn4bname.protocolVersion === "0.4.1prealpha", "protocol version should be equals 0.4.1");
   	ok(ccn4bname.schemeIdentifier === "ccnx", "scheme identifier should be: ccnx");
+	ok(ccn4bname.validate('ccnx:/test/briggs/test.txt'), "vaildate URI: ccnx:/test/goron/test.txt");
 })
 
 test("ccn4bname.parse()",function(){
