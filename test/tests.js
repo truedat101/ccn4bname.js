@@ -7,7 +7,7 @@ module("ccn4buri");
 test("load ccn4buri",function(){
   ok(!!window.ccn4buri, "Check if ccn4buri namespace is bound");
   ok(window.ccn4buri.protocolVersion, "did we find the protocolVersion attribute?");
-  ok(window.ccn4buri.protocolVersion === "0.4.11", "protocol version should be equals 0.4.1");
+  ok(window.ccn4buri.protocolVersion === "0.4.1", "protocol version should be equals 0.4.1");
 })
 
 test("ccn4buri.parse()",function(){

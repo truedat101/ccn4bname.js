@@ -58,6 +58,9 @@
 	// Define as JSON object
 	//
 	var ccn4buri = {
+		util : {
+		  urlRE: /https?:\/\/([-\w\.]+)+(:\d+)?(\/([^\s]*(\?\S+)?)?)?/g
+		},
 		protocolVersion : "0.4.1",
 
 		parse : function(uristring) {
@@ -73,6 +76,7 @@
 			console.log('toString');
 		}
 	};
+	
 	
 	function init() {
 		window.ccn4buri = ccn4buri;
