@@ -57,12 +57,13 @@
 	// 
 	// Define as JSON object
 	//
-	var ccn4buri = {
+	var ccn4bname = {
 		util : {
-		  urlRE: /https?:\/\/([-\w\.]+)+(:\d+)?(\/([^\s]*(\?\S+)?)?)?/g
+			urlRE: /https?:\/\/([-\w\.]+)+(:\d+)?(\/([^\s]*(\?\S+)?)?)?/g,
+			ccnuriRE: /ccnx?:\/\/([-\w\.]+)+(:\d+)?(\/([^\s]*(\?\S+)?)?)?/g,
 		},
-		protocolVersion : "0.4.1",
-
+		protocolVersion : "0.4.1prealpha",
+		schemeIdentifier : "ccnx",
 		parse : function(uristring) {
 			console.log('parse');
 			return true;
@@ -72,14 +73,18 @@
 			console.log('validate');
 		},
 		 
-		toString : function(ccn4buriObj) {
-			console.log('toString');
+		decode : function(ccn4bnameObj) {
+			console.log('decode');
+		},
+		
+		encode: function(ccn4bnameObj) {
+			console.log('encode');
 		}
 	};
 	
 	
 	function init() {
-		window.ccn4buri = ccn4buri;
+		window.ccn4bname = ccn4bname;
 	}
 	
 	init();
