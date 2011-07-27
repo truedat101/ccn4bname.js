@@ -36,19 +36,47 @@
 	toString() - convert a CCN URI JSON object into a CCN URI string
 	
 **/
+
+/* This design pattern for JS library design is a best practice pushed by the experts:
+	JResig - http://ejohn.org/blog/building-a-javascript-library/
+	Joe Hewitt - https://raw.github.com/joehewitt/scrollability/master/scrollability.js
+	
+	Big ideas:
+	* encapsulate your namespace in a clean manner
+	* reserve the name given to your library AT LEAST in the local scope
+	* bind namespace to document
+	* init upon instantiation
+**/
+
 (function() {
-	var ccn4buri = window.ccn4buri = function() {
-		protocolversion = "0.4.1";
-	};
+	//
+	// Put local scoped variables here
+	//
+	// var foo = 0;
+	
+	// 
+	// Define as JSON object
+	//
+	var ccn4buri = {
+		protocolVersion : "0.4.1",
 
-	parse = function(uristring) {
+		parse : function(uristring) {
+			console.log('parse');
+			return true;
+		},
 	
+		validate : function(uristring) {
+			console.log('validate');
+		},
+		 
+		toString : function(ccn4buriObj) {
+			console.log('toString');
+		}
 	};
-	validate = function(uristring) {
 	
-	} 
-	toString = function(ccn4buriObj) {
+	function init() {
+		window.ccn4buri = ccn4buri;
+	}
 	
-	};
-
+	init();
 })();
