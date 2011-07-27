@@ -1,14 +1,12 @@
-
+// Qunit tests for ccn4b-uri
 // documentation on writing tests here: http://docs.jquery.com/QUnit
 // example tests: https://github.com/jquery/qunit/blob/master/test/same.js
 
-// below are some general tests but feel free to delete them.
 
-module("example tests");
-test("HTML5 Boilerplate is sweet",function(){
-  expect(1);
-  equals("boilerplate".replace("boilerplate","sweet"),"sweet","Yes. HTML5 Boilerplate is, in fact, sweet");
-  
+module("ccn4buri");
+
+test("load ccn4buri",function(){
+  ok(!!window.ccn4buri, "Found ccn4buri");
 })
 
 // these test things from plugins.js

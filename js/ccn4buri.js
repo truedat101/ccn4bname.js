@@ -28,17 +28,27 @@
 #SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-ccn4b-uri = {
-	protocolversion = "0.4.1",
-	ccn4buri = {},
+/**
+ 	CCN URI utility class
+
+	parse() - parse a CCN URI string into a CCN URI represented as a JSON object
+	validate() - validate a CCN URI string
+	toString() - convert a CCN URI JSON object into a CCN URI string
 	
-	parse: function(uristring) {
-		
-	}, 
-	validate: function(uristring) {
-		
-	}, 
-	toString: function(ccn4buriObj) {
-		
-	}
-};
+**/
+(function() {
+	var ccn4buri = window.ccn4buri = function() {
+		protocolversion = "0.4.1";
+	};
+
+	parse = function(uristring) {
+	
+	};
+	validate = function(uristring) {
+	
+	} 
+	toString = function(ccn4buriObj) {
+	
+	};
+
+})();
