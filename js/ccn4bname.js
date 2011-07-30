@@ -60,7 +60,7 @@
 	var ccn4bname = {
 		util : {
 			urlRE: /https?:\/\/([-\w\.]+)+(:\d+)?(\/([^\s]*(\?\S+)?)?)?/g,
-			ccnuriRE: /(ccnx:\/)?\/?([-\w\.]+)+(:\d+)?(\/([^\s]*(\?\S+)?)?)?/g
+			ccnuriRE: /(ccnx:\/)?(\/)?([-\w\.]+)+(:\d+)?(\/([^\s]*(\?\S+)?)?)?/g
 		},
 		protocolVersion : "0.4.1prealpha",
 		schemeIdentifier : "ccnx",
@@ -70,7 +70,7 @@
 		},
 	
 		validate : function(uristring) {
-			console.log('validate');
+			console.log('validate ' + uristring);
 			return ccn4bname.util.ccnuriRE.test(uristring);
 		},
 		 
@@ -84,8 +84,8 @@
 	};
 	
 	
-	function init() {
-		window.ccn4bname = ccn4bname;
+	function init() { // Map your local name into the browser namespace
+		window.ccn4bname = ccn4bname; // XXX Will need to catch this for non-browser implementations
 	}
 	
 	init();
