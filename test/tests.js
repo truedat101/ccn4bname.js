@@ -44,18 +44,30 @@ test("ccn4bname CCNx Protocol Check",function(){
 	// XXX Just put these into an array and loop over them all to test
 	var ccnnames = ['ccnx:/test/stevens/test.txt', 
 				'ccnx://test/stevens/test.txt', 
-				'ccnx:/.../.%2e./...././.....///?...',
 				'ccnx:/.../.../..../.....',
 				'/abc/def/q?foo=bar',
 				'/abc/def/ghi#rst',
+				'ccnx://foo/tom/bar',
+				'ccnx:/foo/tom/bar.mp3',
+				'ccnx:/foo/tom/bar',
+				'/abc/def/q?foo=bar',
 				'/abc/def/qr?st=bat#notch',
+				'ccnx:/.../.%2e./...././.....///?...',
 				'ccnx:/test/%C1.%77%00A%8C%B4B%8D%0A%AC%8E%14%8C%07%88%E4%E2%3Dn/%23%00%19/%C1.%76%00t%DF%F63/%FE%23/%C1.M.K%00%1E%90%EAh%E9%FB%AE%A3%9E%17F%20%CF%AB%A0%29%E9%DE%FAZ%DCA%FBZ%F5%DD%F5A%D2%D7%9F%D1/%FD%04%CB%F5qR%7B/%00'
 				];
+	var notccnnames = ['http://www.news.com',
+					'ccn:/a/b/c/d',
+					'just a string',
+					'/^()!;\''
+				]			
   	ok(ccn4bname.protocolVersion, "did we find the protocolVersion attribute?");
   	ok(ccn4bname.protocolVersion === "0.4.1prealpha", "protocol version should be equals 0.4.1");
   	ok(ccn4bname.schemeIdentifier === "ccnx", "scheme identifier should be: ccnx");
 	for (var i = 0 ; i < ccnnames.length; i++) {
 		ok(ccn4bname.validate(ccnnames[i]), 'validate: ' + ccnnames[i]);
+	}
+	for (var i = 0 ; i < notccnnames.length; i++) {
+		ok(ccn4bname.validate(notccnnames[i]), 'validate false: ' + notccnnames[i]);
 	}
 })
 
