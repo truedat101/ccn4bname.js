@@ -58,20 +58,23 @@
 	// Define as JSON object
 	//
 	var ccn4bname = {
+		protocolVersion : "4001", // See ccnx project ccn.h CCN_API_VERSION
+		schemeIdentifier : "ccnx", // Figure out how to apply this to ccnuriRE
 		util : {
 			urlRE: /https?:\/\/([-\w\.]+)+(:\d+)?(\/([^\s]*(\?\S+)?)?)?/g,
+			urlRE3: /^(((ht|f)tp(s?)):\/\/)?(www\.|[a-zA-Z]\.)[a-zA-Z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk)(:[0-9]+)*(\/($|[a-zA-Z0-9\.\,\;\?\'\\\+&amp;%\$#\=~_\-]+))*$/g,
 			ccnuriRE: /(ccnx:\/)?(\/)?([-\w\.]+)+(:\d+)?(\/([^\s]((#|\?)(\S|\.)+)?)?)?/g
 		},
-		protocolVersion : "0.4.1prealpha",
-		schemeIdentifier : "ccnx",
+		
 		parse : function(uristring) {
 			console.log('parse');
 			return true;
 		},
 	
 		validate : function(uristring) {
-			console.log('validate ' + uristring + ' = ' + ccn4bname.util.ccnuriRE.test(uristring)); 
-			return ccn4bname.util.ccnuriRE.test(uristring);
+			console.log('validate ' + uristring + ' = ' + (uristring.match(ccn4bname.util.ccnuriRE) == null) ? false : true);
+			// return index < 0 ? "" : path.substring(index);
+			return (uristring.match(ccn4bname.util.ccnuriRE) == null) ? false : true;
 		},
 		 
 		decode : function(ccn4bnameObj) {

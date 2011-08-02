@@ -61,13 +61,13 @@ test("ccn4bname CCNx Protocol Check",function(){
 					'/^()!;\''
 				]			
   	ok(ccn4bname.protocolVersion, "did we find the protocolVersion attribute?");
-  	ok(ccn4bname.protocolVersion === "0.4.1prealpha", "protocol version should be equals 0.4.1");
+  	ok(ccn4bname.protocolVersion === "4001", "protocol version should be equals 4001");
   	ok(ccn4bname.schemeIdentifier === "ccnx", "scheme identifier should be: ccnx");
 	for (var i = 0 ; i < ccnnames.length; i++) {
-		ok(ccn4bname.validate(ccnnames[i]), 'validate: ' + ccnnames[i]);
+		ok(ccn4bname.validate(ccnnames[i]) === true, 'validate: ' + ccnnames[i]);
 	}
 	for (var i = 0 ; i < notccnnames.length; i++) {
-		ok(ccn4bname.validate(notccnnames[i]), 'validate false: ' + notccnnames[i]);
+		ok(!ccn4bname.validate(notccnnames[i]), 'validate false: ' + notccnnames[i]);
 	}
 })
 
