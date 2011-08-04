@@ -58,6 +58,7 @@ test("ccn4bname CCNx Protocol Check",function(){
 	var notccnnames = ['http://www.news.com',
 					'ccn:/a/b/c/d',
 					'just a string',
+					'ccnxf://foo/tom/bar',
 					'/^()!;\''
 				]			
   	ok(ccn4bname.protocolVersion, "did we find the protocolVersion attribute?");

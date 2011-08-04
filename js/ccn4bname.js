@@ -63,7 +63,7 @@
 		util : {
 			urlRE: /https?:\/\/([-\w\.]+)+(:\d+)?(\/([^\s]*(\?\S+)?)?)?/g,
 			urlRE3: /^(((ht|f)tp(s?)):\/\/)?(www\.|[a-zA-Z]\.)[a-zA-Z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk)(:[0-9]+)*(\/($|[a-zA-Z0-9\.\,\;\?\'\\\+&amp;%\$#\=~_\-]+))*$/g,
-			ccnuriRE: /(ccnx:\/)?(\/)?([-\w\.]+)+(:\d+)?(\/([^\s]((#|\?)(\S|\.)+)?)?)?/g
+			ccnuriRE: /((ccnx:\/(\/)?)?|(\/)?)([-\w\.]+)+(:\d+)?(\/([^\s]((#|\?)(\S|\.)+)?)?)?/g
 		},
 		
 		parse : function(uristring) {
@@ -72,9 +72,11 @@
 		},
 	
 		validate : function(uristring) {
-			console.log('validate ' + uristring + ' = ' + (uristring.match(ccn4bname.util.ccnuriRE) == null) ? false : true);
-			// return index < 0 ? "" : path.substring(index);
-			return (uristring.match(ccn4bname.util.ccnuriRE) == null) ? false : true;
+			// console.log('validate ' + uristring + ' = ' + (uristring.match(ccn4bname.util.ccnuriRE) == null) ? false : true);
+			// return (uristring.match(ccn4bname.util.ccnuriRE) == null) ? false : true;
+			var isValid = ccn4bname.util.ccnuriRE.test(uristring);
+			console.log('validate ' + uristring + ' = ' + isValid );
+			return isValid;
 		},
 		 
 		decode : function(ccn4bnameObj) {
