@@ -62,8 +62,12 @@
 		schemeIdentifier : "ccnx", // Figure out how to apply this to ccnuriRE
 		util : {
 			urlRE: /https?:\/\/([-\w\.]+)+(:\d+)?(\/([^\s]*(\?\S+)?)?)?/g,
-			urlRE3: /^(((ht|f)tp(s?)):\/\/)?(www\.|[a-zA-Z]\.)[a-zA-Z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk)(:[0-9]+)*(\/($|[a-zA-Z0-9\.\,\;\?\'\\\+&amp;%\$#\=~_\-]+))*$/g,
-			ccnuriRE: /((ccnx:\/(\/)?)?|(\/)?)([-\w\.]+)+(:\d+)?(\/([^\s]((#|\?)(\S|\.)+)?)?)?/g
+			// borrowed from http://www.perlmonks.org/?node_id=533496
+			urlRE2: /^(((ht|f)tp(s?)):\/\/)?(www.|[a-zA-Z].)[a-zA-Z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk)(:[0-9]+)*(\/($|[a-zA-Z0-9\.\,\;\?\'\\\+&amp;%\$#\=~_\-]+))*$/g,
+			// Dump this one, doesn't do it all
+			ccnuriRE:  /^((ccnx:\/(\/?))|\/)([-\w\.]+)+(:\d+)?(\/([^\s]((#|\?)(\S|\.)+)?)?)?/g,
+			// based on the perlmonks URL matcher
+			ccnuriRE2: /^((ccnx:\/(\/?))|\/)([a-zA-Z].)[a-zA-Z0-9\-\.]+(:[0-9]+)*(\/($|[a-zA-Z0-9\.\,\;\?\'\\\+&amp;%\$#\=~_\-]+))*$/g
 		},
 		
 		parse : function(uristring) {
@@ -72,9 +76,7 @@
 		},
 	
 		validate : function(uristring) {
-			// console.log('validate ' + uristring + ' = ' + (uristring.match(ccn4bname.util.ccnuriRE) == null) ? false : true);
-			// return (uristring.match(ccn4bname.util.ccnuriRE) == null) ? false : true;
-			var isValid = ccn4bname.util.ccnuriRE.test(uristring);
+			var isValid = (uristring.match(ccn4bname.util.ccnuriRE2) == null) ? false : true;
 			console.log('validate ' + uristring + ' = ' + isValid );
 			return isValid;
 		},
