@@ -33,6 +33,26 @@
 
 module("ccn4bname");
 
+var ccnnames = ['ccnx:/test/stevens/test.txt', 
+			'ccnx://test/stevens/test.txt', 
+			'ccnx:/.../.../..../.....', // XXX Is this really valid? 
+			'/abc/def/q?foo=bar',
+			'/abc/def/ghi#rst',
+			'ccnx://foo/tom/bar',
+			'ccnx:/foo/tom/bar.mp3',
+			'ccnx:/foo/tom/bar',
+			'/abc/def/q?foo=bar',
+			'/abc/def/qr?st=bat#notch',
+			'ccnx:/.../.%2e./...././.....///?...', // XXX Is this really valid?
+			'ccnx:/test/%C1.%77%00A%8C%B4B%8D%0A%AC%8E%14%8C%07%88%E4%E2%3Dn/%23%00%19/%C1.%76%00t%DF%F63/%FE%23/%C1.M.K%00%1E%90%EAh%E9%FB%AE%A3%9E%17F%20%CF%AB%A0%29%E9%DE%FAZ%DCA%FBZ%F5%DD%F5A%D2%D7%9F%D1/%FD%04%CB%F5qR%7B/%00'
+			];
+var notccnnames = ['http://www.news.com',
+				'ccn:/a/b/c/d',
+				'just a string',
+				'ccnxf://foo/tom/bar',
+				'/^()!;\'',
+				''
+			]
 test("load ccn4bname",function(){
   ok(!!window.ccn4bname, "Check if ccn4bname namespace is bound");
 })
@@ -41,26 +61,7 @@ test("load ccn4bname",function(){
  * Reference: ProjectCCNx.git/doc/technical/URI.html
 **/
 test("ccn4bname CCNx Protocol Check",function(){
-	// XXX Just put these into an array and loop over them all to test
-	var ccnnames = ['ccnx:/test/stevens/test.txt', 
-				'ccnx://test/stevens/test.txt', 
-				'ccnx:/.../.../..../.....',
-				'/abc/def/q?foo=bar',
-				'/abc/def/ghi#rst',
-				'ccnx://foo/tom/bar',
-				'ccnx:/foo/tom/bar.mp3',
-				'ccnx:/foo/tom/bar',
-				'/abc/def/q?foo=bar',
-				'/abc/def/qr?st=bat#notch',
-				'ccnx:/.../.%2e./...././.....///?...',
-				'ccnx:/test/%C1.%77%00A%8C%B4B%8D%0A%AC%8E%14%8C%07%88%E4%E2%3Dn/%23%00%19/%C1.%76%00t%DF%F63/%FE%23/%C1.M.K%00%1E%90%EAh%E9%FB%AE%A3%9E%17F%20%CF%AB%A0%29%E9%DE%FAZ%DCA%FBZ%F5%DD%F5A%D2%D7%9F%D1/%FD%04%CB%F5qR%7B/%00'
-				];
-	var notccnnames = ['http://www.news.com',
-					'ccn:/a/b/c/d',
-					'just a string',
-					'ccnxf://foo/tom/bar',
-					'/^()!;\''
-				]			
+			
   	ok(ccn4bname.protocolVersion, "did we find the protocolVersion attribute?");
   	ok(ccn4bname.protocolVersion === "4001", "protocol version should be equals 4001");
   	ok(ccn4bname.schemeIdentifier === "ccnx", "scheme identifier should be: ccnx");
@@ -73,8 +74,11 @@ test("ccn4bname CCNx Protocol Check",function(){
 })
 
 test("ccn4bname.parse()",function(){
-  ok(ccn4bname.parse, "did we find ccn4bname.parse() ?");
-  ok(ccn4bname.parse(), "call parse() with 0 args");
+	ok(ccn4bname.parse, "did we find ccn4bname.parse() ?");
+	ok(!ccn4bname.parse(), "call parse() with 0 args, should be false");
+	for (var i = 0 ; i < ccnnames.length; i++) {
+		ok(ccn4bname.parse(ccnnames[i]), 'parse: ' + ccnnames[i] + ' should return an object');
+	}
 })
 
 

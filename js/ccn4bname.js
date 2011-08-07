@@ -71,8 +71,33 @@
 		},
 		
 		parse : function(uristring) {
-			console.log('parse');
-			return true;
+			console.log('parse ' + uristring);
+			var parsedJSON = false; // Do we really want to return an empty object, or just return false?
+			
+			if (uristring && this.validate(uristring)) {
+				parsedJSON = { // This is the template
+					version: this.protocolVersion,
+					uristring: uristring
+				}
+				// Break into path components, per spec we can dump ccnx://
+				var startcomponents = 0;
+				// Redesign this ... kind of poor
+				if (uristring.indexOf(this.schemeIdentifier + ':/') == 0) {
+					console.log('starts with ccnx:/')
+					parsedJSON['scheme'] =  this.schemeIdentifier;  // Only set if we were given the scheme
+					startcomponents = (this.schemeIdentifier + ':/').length;
+				} 
+				var components = uristring.substr(startcomponents).split('/'); // XXX shouldn't hardcode the component delimiter 
+				
+				// unless this is a zero length component (which should not happen) then this should have at least size of 1
+				for (var i = 0; i < components.length; i ++) {
+					if (components[i].length > 0) { // This should throw out empty string components
+						parsedJSON['c' + i] = components[i];
+					}
+				}
+				console.log(parsedJSON);
+			}
+			return parsedJSON;
 		},
 	
 		validate : function(uristring) {
