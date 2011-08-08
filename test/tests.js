@@ -78,7 +78,7 @@ test("ccn4bname.parse()",function(){
 	ok(!ccn4bname.parse(), "call parse() with 0 args, should be false");
 	var ccn4bnameJSON;
 	for (var i = 0 ; i < ccnnames.length; i++) {
-		ccn4bnameJSON = ccn4bname.parse(ccnnames[i])
+		ccn4bnameJSON = ccn4bname.parse(ccnnames[i]);
 		ok(ccn4bnameJSON, 'parse: ' + ccnnames[i] + ' should return an object');
 		ok(ccn4bnameJSON.protocolVersion == ccn4bname.protocolVersion, 'parse: ' + ccnnames[i] + ' verify protocol version == ' + ccn4bname.protocolVersion);
 		ok(ccn4bnameJSON.uristring === ccnnames[i], 'parse: ' + ccnnames[i] + ' verify uristring match');
@@ -93,6 +93,30 @@ test("ccn4bname.parse()",function(){
 		ok(ccn4bnameJSON.componentCount == (componentIdx), 'parse: ' + ccnnames[i] + ' verify componentCount');
 	}
 })
+test("ccn4bname encode",function(){
+	var ccn4bnameJSON;
+	for (var i = 0 ; i < ccnnames.length; i++) {
+		ccn4bnameJSON = ccn4bname.parse(ccnnames[i]);
+		if (ccn4bnameJSON.encode) {
+			ok(ccn4bnameJSON.encode(), 'encode: ' + ccnnames[i] + ' should return an encoded name');
+		} else {
+			ok(false, 'encode: ' + ccnnames[i] + ' encode method undefined - fix this');
+		}
+		// XXX We should do better verification.  Add the correctly encoded values in another array 
+		// and double check the answers.  For now just log and verify
+	}
+})
 
-
-
+test("ccn4bname decode",function(){
+	var ccn4bnameJSON;
+	for (var i = 0 ; i < ccnnames.length; i++) {
+		ccn4bnameJSON = ccn4bname.parse(ccnnames[i]);
+		if (ccn4bnameJSON.decode) {
+			ok(ccn4bnameJSON.decode(), 'decode: ' + ccnnames[i] + ' should return a decoded name');
+		} else {
+			ok(false, 'decode: ' + ccnnames[i] + ' decode method undefined - fix this');
+		}
+		// XXX We should do better verification.  Add the correctly encoded values in another array 
+		// and double check the answers.  For now just log and verify
+	}
+})

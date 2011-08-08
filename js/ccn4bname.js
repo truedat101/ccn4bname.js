@@ -34,7 +34,7 @@
 	parse() - parse a CCN URI string into a CCN URI represented as a JSON object
 	validate() - validate a CCN URI string
 	toString() - convert a CCN URI JSON object into a CCN URI string
-	
+	encode
 **/
 
 /* This design pattern for JS library design is a best practice pushed by the experts:
@@ -77,7 +77,42 @@
 			if (uristring && this.validate(uristring)) {
 				parsedJSON = { // This is the template
 					protocolVersion: this.protocolVersion,
-					uristring: uristring // XXX Consider refactor this name
+					uristring: uristring, // XXX Consider refactor this name
+					decode : function() {
+						console.log('decode from ' + uristring + ' to ' + decodeURIComponent(uristring));
+						return decodeURIComponent(uristring); // OK, this is kind of dumb, but I guess we don't really store the encoded value, but decode just in case we did
+					},
+					encode: function() {
+						
+						// 
+						// Did you know JS has a function for this: http://www.w3schools.com/jsref/jsref_encodeURIComponent.asp
+						// XXX This is a hack, we should just write our own special purpose encoder ... so for the record
+						// That's what we should do.  But I don't have time right now.  Gotta get to the meat.  So do it very 
+						// inefficiently.  The fact that CCN URI doesn't encode the component separator or the special characters
+						// + . _ - (specifically +) means a general URI encoder will do more than we need.
+						var startcomponents = 0;
+						if (this.scheme) {
+							startcomponents = (this.schemeIdentifier + ':/').length;
+						}
+						for (var i = startcomponents; i < uristring.length; i++) {
+							// 
+							// XXX Our stupid approach will be to drop out of the cases we match, and let the 
+							// default case handle the encoding.  I should be able to do this with a regex matcher search/replace.
+							// I promise to write my own smarter encoder later.
+							var ch = uristring[i];
+							switch(ch) {
+								case '+': break;
+								case '.': break;
+								case '_': break;
+								case '-': break;
+								case '/': break;
+								default:  uristring[i] = encodeURIComponent(ch);
+										  break;
+							}
+						}
+						console.log('encode to ' + uristring);
+						return uristring; 
+					}
 				}
 				// Break into path components, per spec we can dump ccnx://
 				var startcomponents = 0;
@@ -105,17 +140,8 @@
 			var isValid = (uristring.match(ccn4bname.util.ccnuriRE2) == null) ? false : true;
 			console.log('validate ' + uristring + ' = ' + isValid );
 			return isValid;
-		},
-		 
-		decode : function(ccn4bnameObj) {
-			console.log('decode');
-		},
-		
-		encode: function(ccn4bnameObj) {
-			console.log('encode');
 		}
 	};
-	
 	
 	function init() { // Map your local name into the browser namespace
 		window.ccn4bname = ccn4bname; // XXX Will need to catch this for non-browser implementations
