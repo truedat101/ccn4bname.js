@@ -76,8 +76,8 @@
 			
 			if (uristring && this.validate(uristring)) {
 				parsedJSON = { // This is the template
-					version: this.protocolVersion,
-					uristring: uristring
+					protocolVersion: this.protocolVersion,
+					uristring: uristring // XXX Consider refactor this name
 				}
 				// Break into path components, per spec we can dump ccnx://
 				var startcomponents = 0;

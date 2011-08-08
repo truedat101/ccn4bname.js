@@ -76,8 +76,19 @@ test("ccn4bname CCNx Protocol Check",function(){
 test("ccn4bname.parse()",function(){
 	ok(ccn4bname.parse, "did we find ccn4bname.parse() ?");
 	ok(!ccn4bname.parse(), "call parse() with 0 args, should be false");
+	var ccn4bnameJSON;
 	for (var i = 0 ; i < ccnnames.length; i++) {
-		ok(ccn4bname.parse(ccnnames[i]), 'parse: ' + ccnnames[i] + ' should return an object');
+		ccn4bnameJSON = ccn4bname.parse(ccnnames[i])
+		ok(ccn4bnameJSON, 'parse: ' + ccnnames[i] + ' should return an object');
+		ok(ccn4bnameJSON.protocolVersion == ccn4bname.protocolVersion, 'parse: ' + ccnnames[i] + ' verify protocol version == ' + ccn4bname.protocolVersion);
+		ok(ccn4bnameJSON.uristring === ccnnames[i], 'parse: ' + ccnnames[i] + ' verify uristring match');
+		var componentIdx = 0;
+		var componentVal;
+		while ((componentVal = ccn4bnameJSON['c' + componentIdx]) != null) {
+			console.log(componentVal);
+			ok(componentVal, 'parse: ' + ccnnames[i] + ' verify component index ' + componentIdx);
+			componentIdx = componentIdx + 1;
+		}
 	}
 })
 
