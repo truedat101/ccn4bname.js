@@ -84,11 +84,13 @@ test("ccn4bname.parse()",function(){
 		ok(ccn4bnameJSON.uristring === ccnnames[i], 'parse: ' + ccnnames[i] + ' verify uristring match');
 		var componentIdx = 0;
 		var componentVal;
+		// XXX This is a goofy way to detect end of components, but do it this way to ensure we don't hit any odd conditions
 		while ((componentVal = ccn4bnameJSON['c' + componentIdx]) != null) {
 			console.log(componentVal);
 			ok(componentVal, 'parse: ' + ccnnames[i] + ' verify component index ' + componentIdx);
 			componentIdx = componentIdx + 1;
 		}
+		ok(ccn4bnameJSON.componentCount == (componentIdx), 'parse: ' + ccnnames[i] + ' verify componentCount');
 	}
 })
 

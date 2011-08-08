@@ -88,7 +88,8 @@
 					startcomponents = (this.schemeIdentifier + ':/').length;
 				} 
 				var components = uristring.substr(startcomponents).split('/'); // XXX shouldn't hardcode the component delimiter 
-				
+				parsedJSON['componentCount'] = components.length;
+				console.log('componentCount = ' + components.length);
 				// unless this is a zero length component (which should not happen) then this should have at least size of 1
 				for (var i = 0; i < components.length; i ++) {
 					if (components[i].length > 0) { // This should throw out empty string components
