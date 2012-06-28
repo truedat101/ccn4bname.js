@@ -35,7 +35,10 @@ module("ccn4bname");
 
 var ccnnames = ['ccnx:/test/stevens/test.txt', 
 			'ccnx://test/stevens/test.txt', 
-			'ccnx:/.../.../..../.....', // XXX Is this really valid? 
+			'ccnx:/.../.../..../.....',
+			'ccnx:/',
+			'ccnx:/.',
+			'/abc/def/q',
 			'/abc/def/q?foo=bar',
 			'/abc/def/ghi#rst',
 			'ccnx://foo/tom/bar',
@@ -43,6 +46,8 @@ var ccnnames = ['ccnx:/test/stevens/test.txt',
 			'ccnx:/foo/tom/bar',
 			'/abc/def/q?foo=bar',
 			'/abc/def/qr?st=bat#notch',
+			'ccnx:/.../.%2e',
+			'ccnx:/.../.%2e./...././.....//',
 			'ccnx:/.../.%2e./...././.....///?...', // XXX Is this really valid?
 			'ccnx:/test/%C1.%77%00A%8C%B4B%8D%0A%AC%8E%14%8C%07%88%E4%E2%3Dn/%23%00%19/%C1.%76%00t%DF%F63/%FE%23/%C1.M.K%00%1E%90%EAh%E9%FB%AE%A3%9E%17F%20%CF%AB%A0%29%E9%DE%FAZ%DCA%FBZ%F5%DD%F5A%D2%D7%9F%D1/%FD%04%CB%F5qR%7B/%00'
 			];

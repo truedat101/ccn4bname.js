@@ -4,7 +4,7 @@ ccn4bname
 
 Implementation of CCN Protocol Naming and URI Scheme for JS:
 
-http://www.ccnx.org/releases/latest/doc/technical/URI.html
+http://www.ccnx.org/releases/latest/doc/technical/URI.html (refers to: http://www.ietf.org/rfc/rfc3986.txt)
 http://www.ccnx.org/releases/latest/doc/technical/Name.html
 
 ===========

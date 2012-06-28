@@ -58,16 +58,22 @@
 	// Define as JSON object
 	//
 	var ccn4bname = {
-		protocolVersion : "4001", // See ccnx project ccn.h CCN_API_VERSION
+		protocolVersion : "4001", // See ccnx project ccn.h CCN_API_VERSION XXX Need to bump this to 6002
 		schemeIdentifier : "ccnx", // Figure out how to apply this to ccnuriRE
 		util : {
+			// 
+			// This is just a little mess of progressive attempts to get the basic set of names passing
+			// I try to learn from perlmonks, but I am not a monk.
+			//
 			urlRE: /https?:\/\/([-\w\.]+)+(:\d+)?(\/([^\s]*(\?\S+)?)?)?/g,
 			// borrowed from http://www.perlmonks.org/?node_id=533496
 			urlRE2: /^(((ht|f)tp(s?)):\/\/)?(www.|[a-zA-Z].)[a-zA-Z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk)(:[0-9]+)*(\/($|[a-zA-Z0-9\.\,\;\?\'\\\+&amp;%\$#\=~_\-]+))*$/g,
 			// Dump this one, doesn't do it all
 			ccnuriRE:  /^((ccnx:\/(\/?))|\/)([-\w\.]+)+(:\d+)?(\/([^\s]((#|\?)(\S|\.)+)?)?)?/g,
 			// based on the perlmonks URL matcher
-			ccnuriRE2: /^((ccnx:\/(\/?))|\/)([a-zA-Z].)[a-zA-Z0-9\-\.]+(:[0-9]+)*(\/($|[a-zA-Z0-9\.\,\;\?\'\\\+&amp;%\$#\=~_\-]+))*$/g
+			ccnuriRE2: /^((ccnx:\/(\/?))|\/)([a-zA-Z].)[a-zA-Z0-9\-\.]+(:[0-9]+)*(\/($|[a-zA-Z0-9\.\,\;\?\'\\\+&amp;%\$#\=~_\-]+))*$/g,
+			ccnuriRE3: /^((ccnx:(\/?))?)(\/($|[a-zA-Z0-9\.\,\;\?\'\\\+&amp;%\$#\=~_\-]+))+$/g,
+			ccnuriRE4: /^((ccnx:(\/?))?)(\/(\/)?($|[a-zA-Z0-9\.\,\;\?\'\\\+&amp;%\$#\=~_\-]+))+$/g
 		},
 		
 		parse : function(uristring) {
@@ -137,7 +143,7 @@
 		},
 	
 		validate : function(uristring) {
-			var isValid = (uristring.match(ccn4bname.util.ccnuriRE2) == null) ? false : true;
+			var isValid = (uristring.match(ccn4bname.util.ccnuriRE4) == null) ? false : true;
 			console.log('validate ' + uristring + ' = ' + isValid );
 			return isValid;
 		}
